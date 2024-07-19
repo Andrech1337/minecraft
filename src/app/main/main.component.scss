@@ -1,0 +1,62 @@
+$rows: 11;
+$cols: 11;
+.name {
+  position: fixed;
+}
+.main {
+  position: fixed;
+  bottom: 15px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat($cols, min-content);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  justify-content: center;
+}
+
+.block {
+  position: relative;
+
+  margin-left: -31px;
+  margin-bottom: -40px;
+  z-index: 1;
+
+  @for $i from 1 through $rows {
+    @for $j from 1 through $cols {
+      &:nth-child(#{$cols * ($i - 1) + $j}) {
+        grid-row: $i;
+        grid-column: $j;
+        z-index: #{$rows - $i + 1}; // Увеличение z-index снизу вверх
+      }
+    }
+  }
+}
+.block:nth-child(#{$cols}n + 1) {
+  margin-left: 0;
+}
+
+.broken {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.pickaxe {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+.background {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.buttons {
+  position: fixed;
+}

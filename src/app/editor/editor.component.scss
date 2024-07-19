@@ -1,0 +1,48 @@
+$rows: 11;
+$cols: 11;
+
+.main {
+  bottom: 50px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat($cols, min-content);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  justify-content: center;
+}
+.block {
+  position: relative;
+
+  margin-left: -31px;
+  margin-bottom: -40px;
+  z-index: 1;
+
+  @for $i from 1 through $rows {
+    @for $j from 1 through $cols {
+      &:nth-child(#{$cols * ($i - 1) + $j}) {
+        grid-row: $i;
+        grid-column: $j;
+        z-index: #{$rows - $i + 1}; // Увеличение z-index снизу вверх
+      }
+    }
+  }
+}
+.block:nth-child(#{$cols}n + 1) {
+  margin-left: 0;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-height: 100%;
+}
+.work__zone {
+  display: flex;
+  flex-direction: row;
+}

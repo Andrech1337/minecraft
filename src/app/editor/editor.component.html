@@ -1,0 +1,30 @@
+<div class="wrapper">
+  <div class="buttons">
+    <button class="button" (click)="logLevel()">copy to clipboard</button>
+    <button class="button" routerLink="/main" routerLinkActive="active">
+      back to game
+    </button>
+  </div>
+  <div class="work__zone">
+    <span class="pool">
+      @for (sample of pool; track $index) {
+      <img
+        (click)="select(sample)"
+        [src]="'/assets/img/block-' + sample + '.png'"
+        alt=""
+      />
+      }
+    </span>
+    <span class="main">
+      @for (row of rows; track row; let rowIndex = $index){ @for (block of row;
+      track block; let blockIndex = $index) {
+      <div (click)="replace(rowIndex, blockIndex)" class="block">
+        <img
+          [src]="'/assets/img/block-' + rows[rowIndex][blockIndex] + '.png'"
+          alt=""
+        />
+      </div>
+      } }
+    </span>
+  </div>
+</div>
