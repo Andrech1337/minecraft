@@ -1,44 +1,22 @@
-<img
-  class="background"
-  [src]="'/assets/img/background-' + background + '.png'"
-  alt=""
-/>
+<img class="background" [src]="background" alt="" />
 <span class="main">
   @for (row of rows; track row; let rowIndex = $index){ @for (block of row;
   track block; let blockIndex = $index) {
   <div (click)="remove(rowIndex, blockIndex)" class="block">
-    <img
-      [src]="'/assets/img/block-' + rows[rowIndex][blockIndex] + '.png'"
-      alt=""
-    />
-    <img
-      class="broken"
-      [src]="'/assets/img/broken-' + broken[rowIndex][blockIndex] + '.png'"
-      alt=""
-    />
+    <img [src]="'/assets/img/block-' + rows[rowIndex][blockIndex] + '.png'" alt="" />
+    <img class="broken" [src]="'/assets/img/broken-' + broken[rowIndex][blockIndex] + '.png'" alt="" />
   </div>
   } }
 </span>
-<img
-  class="pickaxe"
-  [src]="'/assets/img/pickaxe-' + pickaxeLvl + '-' + pickaxeStatus + '.png'"
-  alt=""
-/>
+<img class="pickaxe" [src]="'/assets/img/pickaxe-' + pickaxeLvl + '-' + pickaxeStatus + '.png'" alt="" />
 <div class="buttons">
   <p class="button" routerLink="/editor" routerLinkActive="active">
     Go to editor
   </p>
   <p class="button" (click)="restoreLevel()">Restore level</p>
-  <select
-    class="button"
-    [(ngModel)]="selectedLocation"
-    (change)="updateLocation()"
-    name=""
-    id=""
-  >
-    <option value="forest">Forest</option>
-    <option value="sakura">Sakura forest</option>
-    <option value="desert">Desert</option>
-    <option value="cave">Cave</option>
+  <select class="button location" [(ngModel)]="selectedLocation" (change)="updateLocation()" name="" id="">
+    @for (location of locationsNames ; track $index) {
+    <option class="location" [value]="location">{{location}}</option>
+    }
   </select>
 </div>

@@ -13,16 +13,17 @@ import { RouterLinkActive } from '@angular/router';
 })
 export class MainComponent {
   title = 'minecraft';
-  locations: any = JSON.parse(JSON.stringify(data.locations));
+  locations: any = { ...JSON.parse(JSON.stringify(data.locations)), ...JSON.parse(localStorage.getItem('data') || "{}") };
+  locationsNames = Object.keys(this.locations)
   selectedLocation: string = 'forest';
   updateLocation() {
     this.rows = this.locations[this.selectedLocation];
-    this.background = this.selectedLocation;
-    console.log(this.background);
+    this.background = (this.backgrounds as any)[this.selectedLocation];
   }
   rows = this.locations.forest;
   hardness: { [key: string]: number } = data.hardness;
-  background = 'forest';
+  backgrounds = { ...JSON.parse(JSON.stringify(data.backgrounds)), ...JSON.parse(localStorage.getItem('backgrounds') || "{}") } // первый парс вообще не нужен
+  background = (this.backgrounds as any)[this.selectedLocation];
   miningSpeed = 1;
   broken: number[][] = [];
   pickaxeLvl = 0;

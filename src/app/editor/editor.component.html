@@ -1,28 +1,47 @@
-<div class="wrapper">
+<div (mouseup)="mouseUp()" (contextmenu)="preventDefault($event)" class="wrapper">
   <div class="buttons">
-    <button class="button" (click)="logLevel()">copy to clipboard</button>
     <button class="button" routerLink="/main" routerLinkActive="active">
-      back to game
+      Back to game
     </button>
+    <!-- <button class="button" (click)="logLevel()">copy to clipboard</button> -->
   </div>
   <div class="work__zone">
-    <span class="pool">
-      @for (sample of pool; track $index) {
-      <img
-        (click)="select(sample)"
-        [src]="'/assets/img/block-' + sample + '.png'"
-        alt=""
-      />
-      }
-    </span>
-    <span class="main">
+    <div class="control__side">
+      <div class="pool"> @for (sample of pool; track $index) {
+        <img draggable="false" class="pool__block" [ngClass]="{'selected': selectedBlock == sample}"
+          (click)="select(sample)" [src]="'/assets/img/block-' + sample + '.png'" alt="" />
+        }
+      </div>
+      <div class="control__panel">
+        <div class="button__block">
+          <button class="button" (click)="saveLevels()">save to local storage</button>
+          <button class="button" (click)="clearLocalStorage()">delete all levels from local storage</button>
+        </div>
+        <div class="button__block">
+          <form>
+            <label for="lname">level name</label>
+            <input type="text" id="lname" [formControl]="inputCustomLevelName">
+          </form>
+          <button class="button" (click)="addLevel()">Create custom level</button>
+        </div>
+        <select class="button location" [(ngModel)]="selectedCustomLevel" (change)="updateLevel()" name="" id="">
+          @for (level of customLevelsNames ; track $index) {
+          <option class="location" [value]="level">{{level}}</option>
+          }
+        </select>
+        <div class="button__block">
+          <input type="file" (change)="onFileSelected($event)">
+          <button class="button" (click)="saveImage()">save image to level</button>
+        </div>
+      </div>
+    </div>
+    <span draggable="false" class="main">
       @for (row of rows; track row; let rowIndex = $index){ @for (block of row;
       track block; let blockIndex = $index) {
-      <div (click)="replace(rowIndex, blockIndex)" class="block">
-        <img
-          [src]="'/assets/img/block-' + rows[rowIndex][blockIndex] + '.png'"
-          alt=""
-        />
+      <div (mousedown)="mouseDown($event)" (mousemove)="bulkReplace(rowIndex, blockIndex)"
+        (click)="replace(rowIndex, blockIndex)" (contextmenu)="clear(rowIndex, blockIndex)" class="block">
+        <img style="user-select: none;" draggable="false"
+          [src]="'/assets/img/block-' + rows[rowIndex][blockIndex] + '.png'" alt="" />
       </div>
       } }
     </span>

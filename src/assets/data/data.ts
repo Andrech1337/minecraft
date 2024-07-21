@@ -495,4 +495,11 @@ export const data = {
     diamond: 7,
     bedrock: 99,
   },
+  backgrounds: {
+    forest: "/assets/img/background-forest.png",
+    sakura: "/assets/img/background-sakura.png",
+    cave: "/assets/img/background-cave.png",
+    desert: "/assets/img/background-desert.png",
+  }
 };
+
